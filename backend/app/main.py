@@ -1,21 +1,18 @@
 from fastapi import FastAPI
 
+from backend.app.api.router import api_router
+from backend.app.core.config import settings
+
 app = FastAPI(
-    title="ThreatForge API",
-    version="1.0.0",
-    description="AI-powered Threat Intelligence Dashboard"
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
 )
+
+app.include_router(api_router)
 
 
 @app.get("/")
 def root():
     return {
-        "message": "Welcome to ThreatForge API 🚀"
-    }
-
-
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy"
+        "message": f"Welcome to {settings.APP_NAME} "
     }
